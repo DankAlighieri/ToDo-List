@@ -7,9 +7,9 @@ public class Task implements ITask {
     private static int SEQUENCIAL = 0;
     private String DESCRICAO;
     /*
-    * (N)ão começado;
-    * (C)omeçado;
-    * (F)inalizado;
+    * (T)o do;
+    * (D)oing;
+    * (F)inished;
     */
     private char STATUS;
     final private LocalDate criadoEm;
