@@ -3,25 +3,44 @@ package ToDo;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         ListaDeTarefas list = new ListaDeTarefas();
-        Task task1 = new Task();
-        task1.setDESCRICAO("Task 1 de teste");
-        task1.setSTATUS('C');
-        task1.setFinalizadoEm(LocalDate.now());
+        boolean continuar = true;
+        int operação;
 
-        Task task2 = new Task();
-        task2.setDESCRICAO("Task 2 de teste");
+        while(continuar) {
+            System.out.println("Olá! Bem-vindo ao Task Now\n\n" +
+                    "Selecione a opção desejada:\n\n" +
+                    "1. Adicionar uma tarefa\n" +
+                    "2. Atualizar uma tarefa\n" +
+                    "3. Remover uma tarefa\n" +
+                    "4. Listar tarefas\n" +
+                    "5. Sair\n");
 
-        Task task3 = new Task();
-        task3.setDESCRICAO("Task 3 de teste");
+            operação = sc.nextInt();
 
-        list.add(task1);
-        list.add(task2);
-        list.add(task3);
-        System.out.println(list.toJson());
+            switch (operação) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+                    continue;
+            }
+
+
+            continuar = false;
+        }
     }
 }
