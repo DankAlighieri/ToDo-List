@@ -14,7 +14,7 @@ public class Main {
 
         while(continuar) {
             System.out.println("Olá! Bem-vindo ao Task Now\n\n" +
-                    "Selecione a opção deseja:\n\n" +
+                    "Selecione a opção desejada:\n\n" +
                     "1. Adicionar uma tarefa\n" +
                     "2. Atualizar uma tarefa\n" +
                     "3. Remover uma tarefa\n" +
