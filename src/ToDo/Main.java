@@ -21,10 +21,12 @@ public class Main {
 
     public static void salvarJson(ListaDeTarefas lista){
         try {
-        FileWriter jsonFile = new FileWriter("C:\\Users\\jacks\\OneDrive\\Desktop\\tarefas.json");
-        jsonFile.write(lista.toJson());
-        System.out.println("Arquivo salvo com sucesso");
-        jsonFile.close();
+            String userHomeFolder = System.getProperty("user.home");
+            String desktopPath = userHomeFolder + "\\Desktop\\tarefas.json";
+            FileWriter jsonFile = new FileWriter(desktopPath);
+            jsonFile.write(lista.toJson());
+            System.out.println("Arquivo salvo com sucesso");
+            jsonFile.close();
         } catch(IOException e) {
             System.out.println("Algo deu errado!");
             e.printStackTrace();
@@ -79,8 +81,7 @@ public class Main {
             System.out.println("Deseja continuar?" +
                     "(S)im");
             escolha = sc.nextLine();
-            if (
-                    Objects.equals(escolha.toLowerCase(), "sim") || Objects.equals(escolha.toLowerCase(), "s")) {
+            if (Objects.equals(escolha.toLowerCase(), "sim") || Objects.equals(escolha.toLowerCase(), "s")) {
                 continuar = true;
             } else {
                 continuar = false;
