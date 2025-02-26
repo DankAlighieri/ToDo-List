@@ -7,36 +7,10 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
-
-    public static void adicionarTarefa(ListaDeTarefas lista) {
-        Task newTask = new Task();
-        Scanner sc = new Scanner(System.in);
-        String descricao;
-        System.out.println("Forneça uma breve descrição para essa tarefa:");
-        descricao = sc.nextLine();
-        newTask.setDESCRICAO(descricao);
-        lista.add(newTask);
-        System.out.println("Tarefa adicionada com sucesso!");
-    }
-
-    public static void salvarJson(ListaDeTarefas lista){
-        try {
-            String userHomeFolder = System.getProperty("user.home");
-            String desktopPath = userHomeFolder + "\\Desktop\\tarefas.json";
-            FileWriter jsonFile = new FileWriter(desktopPath);
-            jsonFile.write(lista.toJson());
-            System.out.println("Arquivo salvo com sucesso");
-            jsonFile.close();
-        } catch(IOException e) {
-            System.out.println("Algo deu errado!");
-            e.printStackTrace();
-        }
-    }
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ListaDeTarefas list = new ListaDeTarefas();
-        boolean continuar = true;
+        boolean continuar = true, jsonExiste;
         int operação;
         String escolha;
 
@@ -52,6 +26,9 @@ public class Main {
 
             operação = sc.nextInt();
 
+            // Verifica se o arquivo json ja existe
+            jsonExiste = Objects.equals(list.getExistingTasks(), "") ? false : true;
+
             switch (operação) {
                 case 1:
                     /*
@@ -60,24 +37,39 @@ public class Main {
                     * Adicioná-la a lista de tarefas
                     * Salvar as tarefas em um arquivo .json
                     */
-                    adicionarTarefa(list);
-                    salvarJson(list);
+                    if(!jsonExiste) {
+                        list.add();
+                        list.salvarJson();
+                    }
+                    else {
+                        /*
+                            json ja existe, entao a rotina precisa levar em conta a estrutura
+                            que ja esta presente no json
+                        */
+
+                    }
                     break;
                 case 2:
+                    // Atualiza uma task
                     break;
                 case 3:
+                    // Remove uma task
                     break;
                 case 4:
-                    System.out.println(list.toJson());
+                    System.out.println(list.getExistingTasks());
+                    //System.out.println(list.toJson());
                     break;
                 case 5:
+                    // Finaliza o programa
                     break;
                 default:
                     System.out.println("Opção inválida!");
                     continue;
             }
 
+            // Consumindo o caractere do enter
             sc.nextLine();
+            // Verificando se o usuario deseja continuar a utilizar o programa
             System.out.println("Deseja continuar?" +
                     "(S)im");
             escolha = sc.nextLine();
