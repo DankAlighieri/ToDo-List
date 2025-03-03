@@ -38,7 +38,7 @@ public class Main {
                     * Salvar as tarefas em um arquivo .json
                     */
                     if(!jsonExiste) {
-                        list.add();
+                        list.add(0);
                         list.salvarJson();
                     }
                     else {
@@ -46,7 +46,9 @@ public class Main {
                             json ja existe, entao a rotina precisa levar em conta a estrutura
                             que ja esta presente no json
                         */
-
+                        int index = list.getIndex();
+                        list.add(index);
+                        list.salvarJson();
                     }
                     break;
                 case 2:

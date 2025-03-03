@@ -11,17 +11,21 @@ import java.util.Scanner;
 
 public class ListaDeTarefas {
     private List<Task> taskList;
+    private int size = 0;
     public ListaDeTarefas() {
         this.taskList = new ArrayList<>();
     }
 
-    public void add () {
+    public void add (int index) {
         Task newTask = new Task();
         Scanner sc = new Scanner(System.in);
         String descricao;
         System.out.println("Forneça uma breve descrição para essa tarefa:");
         descricao = sc.nextLine();
         newTask.setDESCRICAO(descricao);
+        if (index > 0) {
+            newTask.setID(index);
+        }
         taskList.add(newTask);
         System.out.println("Tarefa adicionada com sucesso!");
     }
@@ -33,6 +37,12 @@ public class ListaDeTarefas {
     public Task getTask(int index) {
         return taskList.get(index);
     }
+
+    public int getIndex() {
+        return this.size;
+    }
+
+    public void countTasks(String taskList){}
 
     public String toJson() {
         StringBuilder jsonReturn = new StringBuilder("[\n");
@@ -49,13 +59,14 @@ public class ListaDeTarefas {
     public String getExistingTasks(){
         StringBuilder existingTasks = new StringBuilder("");
         String userHomeFolder = System.getProperty("user.home");
-        String desktopPath = userHomeFolder + "\\Desktop\\tarefas.json";
+        String desktopPath = userHomeFolder + "\\tarefas.json";
         File myJson = new File(desktopPath);
         if (myJson.exists()) {
             try (Scanner sc = new Scanner(myJson)) {
                 while(sc.hasNextLine()) {
                     String data = sc.nextLine();
                     existingTasks.append(data).append("\n");
+                    this.size++;
                 }
             } catch (FileNotFoundException e) {
                 System.out.println("Algo deu errado!\nErro: " + e.getMessage());
@@ -67,7 +78,7 @@ public class ListaDeTarefas {
 
     public void salvarJson(){
         String userHomeFolder = System.getProperty("user.home");
-        String desktopPath = userHomeFolder + "\\Desktop\\tarefas.json";
+        String desktopPath = userHomeFolder + "\\tarefas.json";
         try {
             FileWriter jsonFile = new FileWriter(desktopPath, true);
             jsonFile.write(this.toJson());

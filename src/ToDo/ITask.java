@@ -19,6 +19,7 @@ public interface ITask {
 
     public int getID();
 
+    public void setID(int ID);
     @Override
     public String toString();
 }
