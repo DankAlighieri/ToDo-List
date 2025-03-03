@@ -8,17 +8,6 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void adicionarTarefa(ListaDeTarefas lista) {
-        Task newTask = new Task();
-        Scanner sc = new Scanner(System.in);
-        String descricao;
-        System.out.println("Forneça uma breve descrição para essa tarefa:");
-        descricao = sc.nextLine();
-        newTask.setDESCRICAO(descricao);
-        lista.add(newTask);
-        System.out.println("Tarefa adicionada com sucesso!");
-    }
-
     public static void salvarJson(ListaDeTarefas lista){
         try {
             String userHomeFolder = System.getProperty("user.home");
@@ -41,7 +30,8 @@ public class Main {
         String escolha;
 
         while(continuar) {
-            System.out.println("Olá! Bem-vindo ao Task Now\n\n" +
+            System.out.println(
+                    "Olá! Bem-vindo ao Task Now\n\n" +
                     "Selecione a opção desejada:\n\n" +
                     "1. Adicionar uma tarefa\n" +
                     "2. Atualizar uma tarefa\n" +
@@ -60,7 +50,7 @@ public class Main {
                     * Adicioná-la a lista de tarefas
                     * Salvar as tarefas em um arquivo .json
                     */
-                    adicionarTarefa(list);
+                    list.add();
                     salvarJson(list);
                     break;
                 case 2:

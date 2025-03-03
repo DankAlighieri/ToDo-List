@@ -1,7 +1,11 @@
 package ToDo;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Scanner;
 
 public class ListaDeTarefas {
     private List<Task> taskList;
@@ -9,8 +13,15 @@ public class ListaDeTarefas {
         this.taskList = new ArrayList<>();
     }
 
-    public void add (Task task) {
-        taskList.add(task);
+    public void add () {
+        Task newTask = new Task();
+        Scanner sc = new Scanner(System.in);
+        String descricao;
+        System.out.println("Forneça uma breve descrição para essa tarefa:");
+        descricao = sc.nextLine();
+        newTask.setDESCRICAO(descricao);
+        taskList.add(newTask);
+        System.out.println("Tarefa adicionada com sucesso!");
     }
 
     public void rem(Task task) {
@@ -33,4 +44,23 @@ public class ListaDeTarefas {
         jsonReturn.append("\n]");
         return jsonReturn.toString();
     }
+
+    public String getTasks() {
+        StringBuilder tasks = new StringBuilder("");
+        String userHomeFolder = System.getProperty("user.home");
+        String desktopPath = userHomeFolder + "\\Desktop\\tarefas.json";
+
+        try(Scanner sc = new Scanner("desktopPath")) {
+            while(sc.hasNextLine()) {
+                tasks.append(sc.nextLine());
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Erro: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return tasks.toString();
+    }
+
+
 }
