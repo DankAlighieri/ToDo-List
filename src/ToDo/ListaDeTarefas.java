@@ -42,7 +42,17 @@ public class ListaDeTarefas {
         return this.size;
     }
 
-    public void countTasks(String taskList){}
+    public void countTasks(String taskList){
+        boolean inObject = false;
+        for(char c : taskList.toCharArray()){
+            if(c == '{') {
+                inObject = true;
+            } else if (c == '}' && inObject) {
+                inObject = false;
+                this.size++;
+            }
+        }
+    }
 
     public String toJson() {
         StringBuilder jsonReturn = new StringBuilder("[\n");
@@ -61,13 +71,14 @@ public class ListaDeTarefas {
         String userHomeFolder = System.getProperty("user.home");
         String desktopPath = userHomeFolder + "\\tarefas.json";
         File myJson = new File(desktopPath);
+        boolean inObject = false;
         if (myJson.exists()) {
             try (Scanner sc = new Scanner(myJson)) {
                 while(sc.hasNextLine()) {
                     String data = sc.nextLine();
                     existingTasks.append(data).append("\n");
-                    this.size++;
                 }
+                countTasks(existingTasks.toString());
             } catch (FileNotFoundException e) {
                 System.out.println("Algo deu errado!\nErro: " + e.getMessage());
                 e.printStackTrace();

@@ -10,18 +10,17 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ListaDeTarefas list = new ListaDeTarefas();
-        boolean continuar = true, jsonExiste;
+        boolean jsonExiste;
         int operação;
         String escolha;
 
-        while(continuar) {
+        while(true) {
             System.out.println("Olá! Bem-vindo ao Task Now\n\n" +
                     "Selecione a opção desejada:\n\n" +
                     "1. Adicionar uma tarefa\n" +
                     "2. Atualizar uma tarefa\n" +
                     "3. Remover uma tarefa\n" +
-                    "4. Listar tarefas\n" +
-                    "5. Sair\n"
+                    "4. Listar tarefas\n"
             );
 
             operação = sc.nextInt();
@@ -47,7 +46,7 @@ public class Main {
                             que ja esta presente no json
                         */
                         int index = list.getIndex();
-                        list.add(index);
+                        list.add(index + 1);
                         list.salvarJson();
                     }
                     break;
@@ -59,10 +58,6 @@ public class Main {
                     break;
                 case 4:
                     System.out.println(list.getExistingTasks());
-                    //System.out.println(list.toJson());
-                    break;
-                case 5:
-                    // Finaliza o programa
                     break;
                 default:
                     System.out.println("Opção inválida!");
@@ -75,10 +70,8 @@ public class Main {
             System.out.println("Deseja continuar?" +
                     "(S)im");
             escolha = sc.nextLine();
-            if (Objects.equals(escolha.toLowerCase(), "sim") || Objects.equals(escolha.toLowerCase(), "s")) {
-                continuar = true;
-            } else {
-                continuar = false;
+            if (!Objects.equals(escolha.toLowerCase(), "sim") || !Objects.equals(escolha.toLowerCase(), "s")) {
+                break;
             }
         }
     }
