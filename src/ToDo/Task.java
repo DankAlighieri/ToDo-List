@@ -3,7 +3,7 @@ package ToDo;
 import java.time.LocalDate;
 
 public class Task implements ITask {
-    final private int ID;
+    private int ID;
     private static int SEQUENCIAL = 0;
     private String DESCRICAO;
     /*
@@ -51,6 +51,10 @@ public class Task implements ITask {
 
     public int getID() {
         return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     @Override
