@@ -13,7 +13,6 @@ public class Main {
         String escolha, jsonPath;
         jsonPath = System.getProperty("user.home") + "\\tarefas.json";
         File jsonFile = new File(jsonPath);
-
         while(true) {
             System.out.println("Olá! Bem-vindo ao Task Now\n\n" +
                     "Selecione a opção desejada:\n\n" +
