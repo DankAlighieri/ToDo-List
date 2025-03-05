@@ -1,8 +1,6 @@
 package ToDo;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
+import java.io.File;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -12,7 +10,9 @@ public class Main {
         ListaDeTarefas list = new ListaDeTarefas();
         boolean jsonExiste;
         int operação;
-        String escolha;
+        String escolha, jsonPath;
+        jsonPath = System.getProperty("user.home") + "\\tarefas.json";
+        File jsonFile = new File(jsonPath);
 
         while(true) {
             System.out.println("Olá! Bem-vindo ao Task Now\n\n" +
@@ -26,7 +26,7 @@ public class Main {
             operação = sc.nextInt();
 
             // Verifica se o arquivo json ja existe
-            jsonExiste = Objects.equals(list.getExistingTasks(), "") ? false : true;
+            jsonExiste = jsonFile.exists();
 
             switch (operação) {
                 case 1:
@@ -38,7 +38,6 @@ public class Main {
                     */
                     if(!jsonExiste) {
                         list.add(0);
-                        list.salvarJson();
                     }
                     else {
                         /*
@@ -47,8 +46,9 @@ public class Main {
                         */
                         int index = list.getIndex();
                         list.add(index + 1);
-                        list.salvarJson();
+                        list.setIndex(0);
                     }
+                    list.salvarJson(jsonExiste);
                     break;
                 case 2:
                     // Atualiza uma task
@@ -57,7 +57,11 @@ public class Main {
                     // Remove uma task
                     break;
                 case 4:
-                    System.out.println(list.getExistingTasks());
+                    if (jsonExiste) {
+                        System.out.println(list.getExistingTasks());
+                    } else {
+                        System.out.println("Nenhuma tarefa encontrada!");
+                    }
                     break;
                 default:
                     System.out.println("Opção inválida!");
@@ -70,7 +74,8 @@ public class Main {
             System.out.println("Deseja continuar?" +
                     "(S)im");
             escolha = sc.nextLine();
-            if (!Objects.equals(escolha.toLowerCase(), "sim") || !Objects.equals(escolha.toLowerCase(), "s")) {
+            if (!Objects.equals(escolha.toLowerCase(), "sim") && !Objects.equals(escolha.toLowerCase(), "s")) {
+                System.out.println("Parando o programa...");
                 break;
             }
         }
